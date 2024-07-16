@@ -24,6 +24,21 @@ def test_get_assignments_teacher_2(client, h_teacher_2):
         assert assignment['teacher_id'] == 2
         assert assignment['state'] in ['SUBMITTED', 'GRADED']
 
+def test_mark_grade_teacher(client, h_teacher_2):
+    """
+    Test case for marking a grade for an assignment by teacher.
+    """
+    response = client.post(
+        '/teacher/assignments/grade',
+        headers=h_teacher_2,
+        json={
+            "id": 3,
+            "grade": "B"
+        }
+    )
+
+    assert response.status_code == 200
+
 
 def test_grade_assignment_cross(client, h_teacher_2):
     """
